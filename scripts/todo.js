@@ -30,12 +30,22 @@ module.exports = (robot) => {
   });
 
   robot.respond(/list/i, (msg) => {
-    msg.send(todo.list().join('\n'));/**join 関数は、 配列の全ての要素を与えられた文字列で繋いで一つの文字列にする関数 
-    \n という改行を表すエスケープシーケンスで結合しました。結果として、TODO の一覧が改行されて表示されます。*/
+    const list = todo.list();
+    if (list.length === 0){
+      msg.send('(TODOはありません)');
+    } else {
+      msg.send(list.join('\n'));/**join 関数は、 配列の全ての要素を与えられた文字列で繋いで一つの文字列にする関数 
+      \n という改行を表すエスケープシーケンスで結合しました。結果として、TODO の一覧が改行されて表示されます。*/
+    }
   });
 
   robot.respond(/donelist/i, (msg) => {
-    msg.send(todo.donelist().join('\n'));
+    const donelist = todo.donelist();
+    if(donelist.length === 0){
+       msg.send('(完了したTODOはありません)');
+    } else {
+      msg.send(donelist.join('\n'));
+    }
   });
 
 };
